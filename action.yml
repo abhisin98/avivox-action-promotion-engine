@@ -1,0 +1,18 @@
+name: Promotion Engine
+description: Promote a development branch to QA or a QA branch to beta by validating branch names, creating the target branch when needed, and opening the correct pull request.
+
+inputs:
+  source-branch-name:
+    description: Branch to promote, such as dev/feature-name or qa/feature-name.
+    required: true
+  promotion-target:
+    description: Promotion target. Use qa to move dev -> QA or beta to move qa -> beta.
+    required: true
+
+  github-token:
+    description: GitHub token used for checkout, branch checks, and PR creation. Defaults to the workflow token when left empty.
+    default: ${{ github.token }}
+
+runs:
+  using: "node24"
+  main: "dist/index.cjs"
